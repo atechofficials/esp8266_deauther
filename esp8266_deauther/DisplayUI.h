@@ -32,7 +32,6 @@
 
 using namespace simplebutton;
 
-
 extern Names names;
 extern SSIDs ssids;
 extern Accesspoints accesspoints;
@@ -51,7 +50,13 @@ extern String replaceUtf8(String str, String r);
 const char D_INTRO_0[] PROGMEM = "ESP8266 Deauther";
 const char D_INTRO_1[] PROGMEM = "by @Spacehuhn";
 const char D_INTRO_2[] PROGMEM = DISPLAY_TEXT;
+const char D_INTRO_3[] PROGMEM = DEAUTH_MODEL;
+const char D_INTRO_4[] PROGMEM = DEAUTH_HW_VERSION;
+const char D_INTRO_5[] PROGMEM = DEAUTH_MANUFACTURER;
+const char D_INTRO_6[] PROGMEM = "FW by @Spacehuhn";
+
 const char D_RESETTING[] PROGMEM = "Resetting...";
+
 const char D_SCANNING_0[] PROGMEM = "> Scanning";
 const char D_SCANNING_1[] PROGMEM = "> Scanning.";
 const char D_SCANNING_2[] PROGMEM = "> Scanning..";

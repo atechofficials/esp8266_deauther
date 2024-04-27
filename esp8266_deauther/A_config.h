@@ -6,7 +6,7 @@
 #define DEBUG_PORT Serial
 #define DEBUG_BAUD 115200
 
-#define DEFAULT_ESP8266
+// #define DEFAULT_ESP8266
 
 // #define NODEMCU
 // #define WEMOS_D1_MINI
@@ -47,6 +47,10 @@
 
 // #define LYASI_7W_E27_LAMP
 // #define AVATAR_5W_E14_LAMP
+
+// A-Tech Officials ESP8266 Deauther Boards
+#define HACKPOD_V1
+// #define AT_GENERIC
 
 // Forces formatting of SPIFFS and EEPROM ot startup
 // #define FORMAT_SPIFFS
@@ -381,11 +385,165 @@
 // #define LED_PIN_R 16 // NodeMCU on-board LED
 // #define LED_PIN_B 2  // ESP-12 LED
 
+//*************************A-Tech Officials HACKPOD V1*************************//
+#elif defined(HACKPOD_V1)
+
+// ===== DISPLAY ===== //
+  #define USE_DISPLAY true
+  #define DISPLAY_TIMEOUT 600
+  #define FLIP_DIPLAY true
+  
+  // Use Custom Deauth Board Flag
+  #define CUSTOM_DEAUTH_BOARD true
+  
+  #define DEAUTH_MODEL "HACKPOD"
+  #define DEAUTH_HW_VERSION "v1"
+  #define DEAUTH_MANUFACTURER "@atechofficials"
+  
+  #define SSD1306_I2C
+  
+  #define I2C_ADDR 0x3C
+  #define I2C_SDA 5  // NodeMCU: GPIO5 D1 //ESP-07: GPIO5
+  #define I2C_SCL 4  // NodeMCU: GPIO4 D2 //ESP-07: GPIO4
+  
+// ===== RTC ===== // 
+  #define RTC_DS3231
+
+// ===== BUTTONS ===== //
+  #define BUTTON_UP 14    // NodeMCU: GPIO14 D5  //ESP-07: GPIO12
+  #define BUTTON_DOWN 12  // NodeMCU: GPIO12 D6  //ESP-07: GPIO13
+  #define BUTTON_A 13     // NodeMCU: GPIO13 D7  //ESP-07: GPIO14
+  #define BUTTON_B 2      // NodeMCU: GPIO2  D4  //ESP-07: GPIO2
+
+// ===== LED ===== //
+  #define USE_LED true
+  #define LED_NEOPIXEL
+  
+  #define LED_NEOPIXEL_GRB // WS2812B-5050
+  // #define LED_NEOPIXEL_RGB // WS2812B-2020
+  
+  #define LED_NUM 1
+  #define LED_NEOPIXEL_PIN 15 // NodeMCU: GPIO15 D8 //ESP-07: GPIO15
+  #define LED_MODE_BRIGHTNESS 10
+
+  #define HIGHLIGHT_LED 16 // NodeMCU: GPIO16 D0 //ESP-07: GPIO16
+
+// ===== CLI ===== //
+  #define CLI_ENABLED false
+  #define CLI_ECHO false
+
+// ===== WEB INTERFACE ===== //
+  #define WEB_ENABLED true
+  #define WEB_CAPTIVE_PORTAL false
+  #define WEB_USE_SPIFFS false
+  #define DEFAULT_LANG "en"
+
+// ===== ACCESS POINT ===== //
+  #define AP_SSID "HP Inkjet"
+  #define AP_PASSWD "An@19_MST98"
+  #define AP_HIDDEN false
+  #define AP_IP_ADDR {192, 168, 4, 1}
+
+// ===== Web ===== //
+  #define WEB_IP_ADDR (192, 168, 4, 1)
+  #define WEB_URL "atech.tools"
+
+//*************************A-Tech Officials Generic Setup*************************//
+#elif defined(AT_GENERIC)
+
+// ===== DISPLAY ===== //
+  #define USE_DISPLAY true
+  #define DISPLAY_TIMEOUT 600
+  #define FLIP_DIPLAY true
+
+  #define DEAUTH_MODEL "HACKHELD V1"
+  #define DEAUTH_HW_VERSION "v1"
+  #define DEAUTH_MANUFACTURER "@atechofficials"
+  
+  #define SSD1306_I2C
+  
+  #define I2C_ADDR 0x3C
+  #define I2C_SCL 4  // NodeMCU: GPIO4 D2
+  #define I2C_SDA 5  // NodeMCU: GPIO5 D1
+  
+// ===== RTC ===== // 
+//  #define RTC_DS3231
+
+// ===== BUTTONS ===== //
+  #define BUTTON_UP 14    // NodeMCU: GPIO14 D5
+  #define BUTTON_DOWN 12  // NodeMCU: GPIO12 D6
+  #define BUTTON_A 13     // NodeMCU: GPIO13 D7
+
+// ===== LED ===== //
+  #define USE_LED true
+  #define LED_DIGITAL
+  // #define LED_RGB
+
+  // RGB LED Common Anode
+  #define LED_ANODE false
+  
+  #define LED_PIN_R 16  // NodeMCU: GPIO16 D0
+  #define LED_PIN_G 255
+  #define LED_PIN_B 2   // NodeMCU: GPIO2 D4
+
+  #if(LED_ANODE == true)
+    // For common anode (+) RGB LED
+    #define LED_MODE_OFF 255,255,255    // R,G,B Off
+    #define LED_MODE_SCAN 255,255,0     // Blue On
+    #define LED_MODE_ATTACK 0,255,255   // Red On
+    #define LED_MODE_IDLE 255,0,255     // Green On
+  #else
+    // For common cathode (-) RGB LED
+    #define LED_MODE_OFF 0,0,0         // R,G,B Off
+    #define LED_MODE_SCAN 0,0,255      // Blue On
+    #define LED_MODE_ATTACK 255,0,0    // Red On
+    #define LED_MODE_IDLE 0,255,0      // Green On
+  #endif
+
+  #define LED_MODE_BRIGHTNESS 1
+
+// ===== CLI ===== //
+  #define CLI_ENABLED false
+  #define CLI_ECHO false
+
+// ===== WEB INTERFACE ===== //
+  #define WEB_ENABLED true
+  #define WEB_CAPTIVE_PORTAL false
+  #define WEB_USE_SPIFFS false
+  #define DEFAULT_LANG "en"
+
+// ===== ACCESS POINT ===== //
+  #define AP_SSID "HP Inkjet"
+  #define AP_PASSWD "An@19_MST98"
+  #define AP_HIDDEN false
+  #define AP_IP_ADDR {192, 168, 4, 1}
+
+// ===== Web ===== //
+  #define WEB_IP_ADDR (192, 168, 4, 1)
+  #define WEB_URL "atech.tools"
+
 #endif /* if defined(DEFAULT_ESP8266) || defined(NODEMCU) || defined(WEMOS_D1_MINI) || defined(DSTIKE_USB_DEAUTHER) || defined(DSTIKE_NODEMCU_07) || defined(DSTIKE_DEAUTHER) || defined(DSTIKE_DEAUTHER_V1) || defined(DSTIKE_DEAUTHER_V2) || defined(DSTIKE_DEAUTHER_V3) */
 // ============================== //
 
 
 // ========= FALLBACK ========= //
+
+// Use Custom Deauth Board Flag
+#ifndef CUSTOM_DEAUTH_BOARD
+  #define CUSTOM_DEAUTH_BOARD false
+#endif /* ifndef CUSTOM_DEAUTH_BOARD */
+
+#ifndef DEAUTH_MODEL
+  #define DEAUTH_MODEL "ESP8266 Deauther"
+#endif
+
+#ifndef DEAUTH_MANUFACTURER
+  #define DEAUTH_MANUFACTURER "by @Spacehuhn"
+#endif
+
+#ifndef DEAUTH_HW_VERSION
+  #define DEAUTH_HW_VERSION "V1"
+#endif
 
 // ===== AUTOSAVE ===== //
 #ifndef AUTOSAVE_ENABLED

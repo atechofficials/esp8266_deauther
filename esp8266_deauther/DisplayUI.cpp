@@ -4,6 +4,8 @@
 
 #include "settings.h"
 
+#include "A_config.h"
+
 // ===== adjustable ===== //
 void DisplayUI::configInit() {
     // initialize display
@@ -804,17 +806,36 @@ void DisplayUI::drawPacketMonitor() {
     }
 }
 
-void DisplayUI::drawIntro() {
+void DisplayUI::drawIntro() 
+{
+  if(CUSTOM_DEAUTH_BOARD)
+  {
+    drawString(0, center(str(D_INTRO_3) + " " + str(D_INTRO_4), maxLen));
+    drawString(1, center("by " + str(D_INTRO_5), maxLen));
+    drawString(2, center("Firmware: v" + str(DEAUTHER_VERSION), maxLen));
+    drawString(3, center(str(D_INTRO_6), maxLen));
+    if (scan.isScanning())
+    {
+      if (currentTime - startTime >= screenIntroTime+4500) drawString(4, left(str(D_SCANNING_3), maxLen));
+      else if (currentTime - startTime >= screenIntroTime+3000) drawString(4, left(str(D_SCANNING_2), maxLen));
+      else if (currentTime - startTime >= screenIntroTime+1500) drawString(4, left(str(D_SCANNING_1), maxLen));
+      else if (currentTime - startTime >= screenIntroTime) drawString(4, left(str(D_SCANNING_0), maxLen));
+    }
+  }
+  else
+  {
     drawString(0, center(str(D_INTRO_0), maxLen));
     drawString(1, center(str(D_INTRO_1), maxLen));
     drawString(2, center(str(D_INTRO_2), maxLen));
     drawString(3, center(DEAUTHER_VERSION, maxLen));
-    if (scan.isScanning()) {
-        if (currentTime - startTime >= screenIntroTime+4500) drawString(4, left(str(D_SCANNING_3), maxLen));
-        else if (currentTime - startTime >= screenIntroTime+3000) drawString(4, left(str(D_SCANNING_2), maxLen));
-        else if (currentTime - startTime >= screenIntroTime+1500) drawString(4, left(str(D_SCANNING_1), maxLen));
-        else if (currentTime - startTime >= screenIntroTime) drawString(4, left(str(D_SCANNING_0), maxLen));
+    if (scan.isScanning()) 
+    {
+      if (currentTime - startTime >= screenIntroTime+4500) drawString(4, left(str(D_SCANNING_3), maxLen));
+      else if (currentTime - startTime >= screenIntroTime+3000) drawString(4, left(str(D_SCANNING_2), maxLen));
+      else if (currentTime - startTime >= screenIntroTime+1500) drawString(4, left(str(D_SCANNING_1), maxLen));
+      else if (currentTime - startTime >= screenIntroTime) drawString(4, left(str(D_SCANNING_0), maxLen));
     }
+  }
 }
 
 void DisplayUI::drawClock() {
